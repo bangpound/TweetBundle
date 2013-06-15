@@ -1,14 +1,21 @@
 {
     "name": "bangpound/tweet-bundle",
     "description": "Tweet entities and admin controllers",
+    "license" : "MIT",
     "authors": [
         {
             "name": "Benjamin Doherty",
             "email": "bjd@bangpound.org"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "Bangpound\\PhirehoseBundle\\": ""
+        }
+    },
     "require": {
         "sonata-project/admin-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
-    }
+    },
+    "target-dir": "Bangpound/TweetBundle"
 }
