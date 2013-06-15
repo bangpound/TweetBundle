@@ -15,7 +15,7 @@
     },
     "require": {
         "sonata-project/admin-bundle": "dev-master",
-        "jms/serializer-bundle": "dev-master",
+        "jms/serializer-bundle": "dev-master"
     },
     "target-dir": "Bangpound/TweetBundle"
 }
