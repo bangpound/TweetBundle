@@ -1,0 +1,14 @@
+{
+    "name": "bangpound/tweet-bundle",
+    "description": "Tweet entities and admin controllers",
+    "authors": [
+        {
+            "name": "Benjamin Doherty",
+            "email": "bjd@bangpound.org"
+        }
+    ],
+    "require": {
+        "sonata-project/admin-bundle": "dev-master",
+        "jms/serializer-bundle": "dev-master",
+    }
+}

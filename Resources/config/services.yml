@@ -1,0 +1,7 @@
+parameters:
+#    bangpound_tweet.example.class: Bangpound\TweetBundle\Example
+
+services:
+#    bangpound_tweet.example:
+#        class: %bangpound_tweet.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

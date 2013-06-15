@@ -1,0 +1,3 @@
+bangpound_tweet_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: BangpoundTweetBundle:Default:index }
