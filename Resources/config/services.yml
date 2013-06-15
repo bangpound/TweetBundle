@@ -1,7 +1,7 @@
 parameters:
-#    bangpound_tweet.example.class: Bangpound\TweetBundle\Example
+#    bangpound_twitter_data.example.class: Bangpound\Twitter\DataBundle\Example
 
 services:
-#    bangpound_tweet.example:
-#        class: %bangpound_tweet.example.class%
+#    bangpound_twitter_data.example:
+#        class: %bangpound_twitter_data.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

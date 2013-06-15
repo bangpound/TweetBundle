@@ -1,5 +1,5 @@
 {
-    "name": "bangpound/tweet-bundle",
+    "name": "bangpound/twitter-data-bundle",
     "description": "Tweet entities and admin controllers",
     "license" : "MIT",
     "authors": [
@@ -10,12 +10,12 @@
     ],
     "autoload": {
         "psr-0": {
-            "Bangpound\\TweetBundle\\": ""
+            "Bangpound\\Twitter\\DataBundle\\": ""
         }
     },
     "require": {
         "sonata-project/admin-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master"
     },
-    "target-dir": "Bangpound/TweetBundle"
+    "target-dir": "Bangpound/Twitter/DataBundle"
 }

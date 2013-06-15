@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\TweetBundle\Admin;
+namespace Bangpound\Twitter\DataBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;

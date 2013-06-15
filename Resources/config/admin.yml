@@ -1,93 +1,93 @@
 services:
-    rshief_twitter.admin.entities:
-        class: Bangpound\TweetBundle\Admin\EntitiesAdmin
+    bangpound_twitter_data.admin.entities:
+        class: Bangpound\Twitter\DataBundle\Admin\EntitiesAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: Entities }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\Entities
+            - Bangpound\Twitter\DataBundle\Entity\Entities
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ addChild, [ '@rshief_twitter.admin.hashtag' ] ]
-            - [ addChild, [ '@rshief_twitter.admin.media' ] ]
-            - [ addChild, [ '@rshief_twitter.admin.url' ] ]
-            - [ addChild, [ '@rshief_twitter.admin.user_mention' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.hashtag' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.media' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.url' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.user_mention' ] ]
 
-    rshief_twitter.admin.hashtag:
-        class: Bangpound\TweetBundle\Admin\HashtagAdmin
+    bangpound_twitter_data.admin.hashtag:
+        class: Bangpound\Twitter\DataBundle\Admin\HashtagAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: Hashtag }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\Hashtag
+            - Bangpound\Twitter\DataBundle\Entity\Hashtag
             - 'SonataAdminBundle:CRUD'
         calls:
             - [ setParentAssociationMapping, [ 'entities' ] ]
 
-    rshief_twitter.admin.media:
-        class: Bangpound\TweetBundle\Admin\MediaAdmin
+    bangpound_twitter_data.admin.media:
+        class: Bangpound\Twitter\DataBundle\Admin\MediaAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: Media }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\Media
+            - Bangpound\Twitter\DataBundle\Entity\Media
             - 'SonataAdminBundle:CRUD'
         calls:
             - [ setParentAssociationMapping, [ 'entities' ] ]
 
-    rshief_twitter.admin.place:
-        class: Bangpound\TweetBundle\Admin\PlaceAdmin
+    bangpound_twitter_data.admin.place:
+        class: Bangpound\Twitter\DataBundle\Admin\PlaceAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: Place }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\Place
+            - Bangpound\Twitter\DataBundle\Entity\Place
             - 'SonataAdminBundle:CRUD'
         calls:
             - [ setParentAssociationMapping, [ 'tweet' ] ]
 
-    rshief_twitter.admin.tweet:
-        class: Bangpound\TweetBundle\Admin\TweetAdmin
+    bangpound_twitter_data.admin.tweet:
+        class: Bangpound\Twitter\DataBundle\Admin\TweetAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: Tweet }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\Tweet
+            - Bangpound\Twitter\DataBundle\Entity\Tweet
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ addChild, [ '@rshief_twitter.admin.entities' ] ]
-            - [ addChild, [ '@rshief_twitter.admin.user' ] ]
-            - [ addChild, [ '@rshief_twitter.admin.place' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.entities' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.user' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.place' ] ]
 
-    rshief_twitter.admin.url:
-        class: Bangpound\TweetBundle\Admin\UrlAdmin
+    bangpound_twitter_data.admin.url:
+        class: Bangpound\Twitter\DataBundle\Admin\UrlAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: URL }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\Url
+            - Bangpound\Twitter\DataBundle\Entity\Url
             - 'SonataAdminBundle:CRUD'
         calls:
             - [ setParentAssociationMapping, [ 'entities' ] ]
 
-    rshief_twitter.admin.user:
-        class: Bangpound\TweetBundle\Admin\UserAdmin
+    bangpound_twitter_data.admin.user:
+        class: Bangpound\Twitter\DataBundle\Admin\UserAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: User }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\User
+            - Bangpound\Twitter\DataBundle\Entity\User
             - 'SonataAdminBundle:CRUD'
         calls:
             - [ setParentAssociationMapping, [ 'tweet' ] ]
 
-    rshief_twitter.admin.user_mention:
-        class: Bangpound\TweetBundle\Admin\UserMentionAdmin
+    bangpound_twitter_data.admin.user_mention:
+        class: Bangpound\Twitter\DataBundle\Admin\UserMentionAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: Twitter, label: User Mention }
         arguments:
             - ~
-            - Bangpound\TweetBundle\Entity\UserMention
+            - Bangpound\Twitter\DataBundle\Entity\UserMention
             - 'SonataAdminBundle:CRUD'
         calls:
             - [ setParentAssociationMapping, [ 'entities' ] ]

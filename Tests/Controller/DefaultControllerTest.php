@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\TweetBundle\Tests\Controller;
+namespace Bangpound\Twitter\DataBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

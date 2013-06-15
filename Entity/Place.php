@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\TweetBundle\Entity;
+namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;

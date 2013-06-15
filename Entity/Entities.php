@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\TweetBundle\Entity;
+namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -33,7 +33,7 @@ class Entities {
     /**
      * @var ArrayCollection<Hashtag>
      *
-     * @JMS\Type("ArrayCollection<Bangpound\TweetBundle\Entity\Hashtag>")
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\Hashtag>")
      * @ORM\OneToMany(targetEntity="Hashtag", mappedBy="entities", cascade={"persist"})
      * @JMS\AccessType("public_method")
      */
@@ -42,7 +42,7 @@ class Entities {
     /**
      * @var ArrayCollection<Media>
      *
-     * @JMS\Type("ArrayCollection<Bangpound\TweetBundle\Entity\Media>")
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\Media>")
      * @ORM\OneToMany(targetEntity="Media", mappedBy="entities", cascade={"persist"})
      * @JMS\AccessType("public_method")
      */
@@ -51,7 +51,7 @@ class Entities {
     /**
      * @var ArrayCollection<Url>
      *
-     * @JMS\Type("ArrayCollection<Bangpound\TweetBundle\Entity\Url>")
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\Url>")
      * @ORM\OneToMany(targetEntity="Url", mappedBy="entities", cascade={"persist"})
      * @JMS\AccessType("public_method")
      */
@@ -60,7 +60,7 @@ class Entities {
     /**
      * @var ArrayCollection<UserMention>
      *
-     * @JMS\Type("ArrayCollection<Bangpound\TweetBundle\Entity\UserMention>")
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\UserMention>")
      * @ORM\OneToMany(targetEntity="UserMention", mappedBy="entities", cascade={"persist"})
      * @JMS\AccessType("public_method")
      */

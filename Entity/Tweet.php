@@ -1,6 +1,6 @@
 <?php
 
-namespace Bangpound\TweetBundle\Entity;
+namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -44,7 +44,7 @@ class Tweet
      * @var Entities
      *
      * @ORM\OneToOne(targetEntity="Entities", cascade={"persist"}, inversedBy="tweet")
-     * @JMS\Type("Bangpound\TweetBundle\Entity\Entities")
+     * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\Entities")
      */
     private $entities;
 
@@ -122,7 +122,7 @@ class Tweet
      * @var Place
      *
      * @ORM\OneToOne(targetEntity="Place", cascade={"persist"}, inversedBy="tweet")
-     * @JMS\Type("Bangpound\TweetBundle\Entity\Place")
+     * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\Place")
      */
     private $place;
 
@@ -172,7 +172,7 @@ class Tweet
      * @var User
      *
      * @ORM\OneToOne(targetEntity="User", cascade={"persist"}, inversedBy="tweet")
-     * @JMS\Type("Bangpound\TweetBundle\Entity\User")
+     * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\User")
      */
     private $user;
 
