@@ -3,11 +3,12 @@
 namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Url
  *
- * @ORM\Table("url")
+ * @ORM\Table("url", uniqueConstraints={@ORM\UniqueConstraint(name="url_idx", columns={"url"})}, options={"collate"="utf8_bin"})
  * @ORM\Entity
  */
 class Url
@@ -29,18 +30,18 @@ class Url
     private $displayUrl;
 
     /**
-     * @var Entities
-     *
-     * @ORM\ManyToOne(targetEntity="Entities", inversedBy="urls"))
-     */
-    private $entities;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="expanded_url", type="string", length=255)
      */
     private $expandedUrl;
+
+    /**
+     * @var ArrayCollection<Tweet>
+     *
+     * @ORM\ManyToMany(targetEntity="Tweet", mappedBy="urls")
+     */
+    private $tweets;
 
     /**
      * @var string
@@ -127,11 +128,6 @@ class Url
     public function getUrl()
     {
         return $this->url;
-    }
-    public function setEntities(Entities $entities)
-    {
-        $this->entities = $entities;
-        return $this;
     }
 
     public function __toString()

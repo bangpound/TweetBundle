@@ -26,10 +26,10 @@ class TweetAdmin extends Admin
         $showMapper
             ->add('text')
             ->add('user')
-            ->add('entities.hashtags')
-            ->add('entities.media')
-            ->add('entities.urls')
-            ->add('entities.userMentions')
+            ->add('hashtags')
+            ->add('media')
+            ->add('urls')
+            ->add('userMentions')
         ;
     }
 
@@ -54,7 +54,7 @@ class TweetAdmin extends Admin
             ->add('createdAt')
             ->add('user.screenName')
             ->addIdentifier('text')
-            ->add('entities.hashtags')
+            ->add('hashtags')
             ->add('lang')
         ;
     }
@@ -67,7 +67,11 @@ class TweetAdmin extends Admin
         $id = $admin->getRequest()->get('id');
 
         $menu->addChild('Tweet', array('uri' => $admin->generateUrl('edit', array('id' => $id))));
-        $menu->addChild('User', array('uri' => $admin->generateUrl('rshief_twitter.admin.user.list', array('id' => $id))));
-        $menu->addChild('Place', array('uri' => $admin->generateUrl('rshief_twitter.admin.place.list', array('id' => $id))));
+        $menu->addChild('Hashtags', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.hashtag.list', array('id' => $id))));
+        $menu->addChild('Media', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.media.list', array('id' => $id))));
+        $menu->addChild('Urls', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.url.list', array('id' => $id))));
+        $menu->addChild('User', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.user.list', array('id' => $id))));
+        $menu->addChild('UserMentions', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.user_mention.list', array('id' => $id))));
+        $menu->addChild('Place', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.place.list', array('id' => $id))));
     }
 }

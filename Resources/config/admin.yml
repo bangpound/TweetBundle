@@ -1,18 +1,4 @@
 services:
-    bangpound_twitter_data.admin.entities:
-        class: Bangpound\Twitter\DataBundle\Admin\EntitiesAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Twitter, label: Entities }
-        arguments:
-            - ~
-            - Bangpound\Twitter\DataBundle\Entity\Entities
-            - 'SonataAdminBundle:CRUD'
-        calls:
-            - [ addChild, [ '@bangpound_twitter_data.admin.hashtag' ] ]
-            - [ addChild, [ '@bangpound_twitter_data.admin.media' ] ]
-            - [ addChild, [ '@bangpound_twitter_data.admin.url' ] ]
-            - [ addChild, [ '@bangpound_twitter_data.admin.user_mention' ] ]
-
     bangpound_twitter_data.admin.hashtag:
         class: Bangpound\Twitter\DataBundle\Admin\HashtagAdmin
         tags:
@@ -22,7 +8,7 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\Hashtag
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ setParentAssociationMapping, [ 'entities' ] ]
+            - [ setParentAssociationMapping, [ 'tweets' ] ]
 
     bangpound_twitter_data.admin.media:
         class: Bangpound\Twitter\DataBundle\Admin\MediaAdmin
@@ -33,7 +19,7 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\Media
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ setParentAssociationMapping, [ 'entities' ] ]
+            - [ setParentAssociationMapping, [ 'tweets' ] ]
 
     bangpound_twitter_data.admin.place:
         class: Bangpound\Twitter\DataBundle\Admin\PlaceAdmin
@@ -44,7 +30,7 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\Place
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ setParentAssociationMapping, [ 'tweet' ] ]
+            - [ setParentAssociationMapping, [ 'tweets' ] ]
 
     bangpound_twitter_data.admin.tweet:
         class: Bangpound\Twitter\DataBundle\Admin\TweetAdmin
@@ -55,7 +41,10 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\Tweet
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ addChild, [ '@bangpound_twitter_data.admin.entities' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.hashtag' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.media' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.url' ] ]
+            - [ addChild, [ '@bangpound_twitter_data.admin.user_mention' ] ]
             - [ addChild, [ '@bangpound_twitter_data.admin.user' ] ]
             - [ addChild, [ '@bangpound_twitter_data.admin.place' ] ]
 
@@ -68,7 +57,7 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\Url
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ setParentAssociationMapping, [ 'entities' ] ]
+            - [ setParentAssociationMapping, [ 'tweets' ] ]
 
     bangpound_twitter_data.admin.user:
         class: Bangpound\Twitter\DataBundle\Admin\UserAdmin
@@ -79,7 +68,7 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\User
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ setParentAssociationMapping, [ 'tweet' ] ]
+            - [ setParentAssociationMapping, [ 'tweets' ] ]
 
     bangpound_twitter_data.admin.user_mention:
         class: Bangpound\Twitter\DataBundle\Admin\UserMentionAdmin
@@ -90,4 +79,4 @@ services:
             - Bangpound\Twitter\DataBundle\Entity\UserMention
             - 'SonataAdminBundle:CRUD'
         calls:
-            - [ setParentAssociationMapping, [ 'entities' ] ]
+            - [ setParentAssociationMapping, [ 'tweets' ] ]

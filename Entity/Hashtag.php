@@ -3,11 +3,13 @@
 namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Hashtag
  *
- * @ORM\Table("hashtag")
+ * @ORM\Table("hashtag", uniqueConstraints={@ORM\UniqueConstraint(name="text_idx", columns={"text"})}, options={"collate"="utf8_bin"})
  * @ORM\Entity
  */
 class Hashtag
@@ -22,18 +24,18 @@ class Hashtag
     private $id;
 
     /**
-     * @var Entities
-     *
-     * @ORM\ManyToOne(targetEntity="Entities", inversedBy="hashtags")
-     */
-    private $entities;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="text", type="string", length=255)
      */
     private $text;
+
+    /**
+     * @var ArrayCollection<Tweet>
+     *
+     * @ORM\ManyToMany(targetEntity="Tweet", mappedBy="hashtags")
+     */
+    private $tweets;
 
     /**
      * Get id
@@ -67,11 +69,7 @@ class Hashtag
     {
         return $this->text;
     }
-    public function setEntities(Entities $entities)
-    {
-        $this->entities = $entities;
-        return $this;
-    }
+
     public function __toString()
     {
         return $this->getText();

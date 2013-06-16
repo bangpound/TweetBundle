@@ -3,11 +3,12 @@
 namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * UserMention
  *
- * @ORM\Table("user_mention")
+ * @ORM\Table("user_mention", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
  * @ORM\Entity
  */
 class UserMention
@@ -20,13 +21,6 @@ class UserMention
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var Entities
-     *
-     * @ORM\ManyToOne(targetEntity="Entities", inversedBy="userMentions")
-     */
-    private $entities;
 
     /**
      * @var string
@@ -127,11 +121,6 @@ class UserMention
     public function getScreenName()
     {
         return $this->screenName;
-    }
-    public function setEntities(Entities $entities)
-    {
-        $this->entities = $entities;
-        return $this;
     }
 
     public function __toString()

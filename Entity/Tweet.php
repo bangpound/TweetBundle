@@ -2,10 +2,10 @@
 
 namespace Bangpound\Twitter\DataBundle\Entity;
 
+use CrEOF\Spatial\PHP\Types as Geometry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use CrEOF\Spatial\PHP\Types as Geometry;
-use Doctrine\DBAL\Types\JsonArrayType;
 
 /**
  * Tweet
@@ -41,14 +41,6 @@ class Tweet
     private $createdAt;
 
     /**
-     * @var Entities
-     *
-     * @ORM\OneToOne(targetEntity="Entities", cascade={"persist"}, inversedBy="tweet")
-     * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\Entities")
-     */
-    private $entities;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="favorite_count", type="integer")
@@ -68,6 +60,14 @@ class Tweet
      * @ORM\Column(name="filter_level", type="string", length=255)
      */
     private $filterLevel;
+
+    /**
+     * @var ArrayCollection<Hashtag>
+     *
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\Hashtag>")
+     * @ORM\ManyToMany(targetEntity="Hashtag", inversedBy="tweets")
+     */
+    private $hashtags;
 
     /**
      * @var string
@@ -119,9 +119,17 @@ class Tweet
     private $lang;
 
     /**
+     * @var ArrayCollection<Media>
+     *
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\Media>")
+     * @ORM\ManyToMany(targetEntity="Media")
+     */
+    private $media;
+
+    /**
      * @var Place
      *
-     * @ORM\OneToOne(targetEntity="Place", cascade={"persist"}, inversedBy="tweet")
+     * @ORM\ManyToOne(targetEntity="Place")
      * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\Place")
      */
     private $place;
@@ -169,12 +177,28 @@ class Tweet
     private $truncated;
 
     /**
+     * @var ArrayCollection<Url>
+     *
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\Url>")
+     * @ORM\ManyToMany(targetEntity="Url", inversedBy="tweets")
+     */
+    private $urls;
+
+    /**
      * @var User
      *
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist"}, inversedBy="tweet")
+     * @ORM\ManyToOne(targetEntity="User")
      * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\User")
      */
     private $user;
+
+    /**
+     * @var ArrayCollection<UserMention>
+     *
+     * @JMS\Type("ArrayCollection<Bangpound\Twitter\DataBundle\Entity\UserMention>")
+     * @ORM\ManyToMany(targetEntity="UserMention")
+     */
+    private $userMentions;
 
     /**
      * @var boolean
@@ -190,6 +214,13 @@ class Tweet
      */
     private $withheldScope;
 
+    public function __construct()
+    {
+        $this->hashtags = new ArrayCollection();
+        $this->media = new ArrayCollection();
+        $this->urls = new ArrayCollection();
+        $this->userMentions = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -236,9 +267,6 @@ class Tweet
         return $this->coordinates;
     }
 */
-    public function getEntities() {
-        return $this->entities;
-    }
 
     /**
      * Set favoriteCount
@@ -307,6 +335,17 @@ class Tweet
     public function getFilterLevel()
     {
         return $this->filterLevel;
+    }
+
+    public function getHashtags()
+    {
+        return $this->hashtags;
+    }
+
+    public function setHashtags(ArrayCollection $hashtags)
+    {
+        $this->hashtags = $hashtags;
+        return $this;
     }
 
     /**
@@ -470,6 +509,40 @@ class Tweet
         return $this->lang;
     }
 
+    public function getMedia()
+    {
+        return $this->media;
+    }
+
+    public function setMedia(ArrayCollection $media)
+    {
+        $this->media = $media;
+        return $this;
+    }
+
+
+    /**
+     * Set place
+     *
+     * @param Place $place
+     * @return Tweet
+     */
+    public function setPlace(Place $place)
+    {
+        $this->place = $place;
+        return $this;
+    }
+
+    /**
+     * Get place
+     *
+     * @return Place
+     */
+    public function getPlace()
+    {
+        return $this->place;
+    }
+
     /**
      * Set possiblySensitive
      *
@@ -608,6 +681,17 @@ class Tweet
         return $this->truncated;
     }
 
+    public function getUrls()
+    {
+        return $this->urls;
+    }
+
+    public function setUrls(ArrayCollection $urls)
+    {
+        $this->urls = $urls;
+        return $this;
+    }
+
     /**
      * Set user
      *
@@ -622,7 +706,7 @@ class Tweet
     }
 
     /**
-     * Get url
+     * Get user
      *
      * @return User
      */
@@ -631,6 +715,17 @@ class Tweet
         return $this->user;
     }
 
+    public function getUserMentions()
+    {
+        return $this->userMentions;
+    }
+
+    public function setUserMentions(ArrayCollection $userMentions)
+    {
+        $this->userMentions = $userMentions;
+        return $this;
+    }
+    
     /**
      * Set withheldCopyright
      *

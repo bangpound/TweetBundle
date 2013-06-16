@@ -16,9 +16,8 @@ class Place
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="string", length=255)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -62,14 +61,6 @@ class Place
     /**
      * @var string
      *
-     * @ORM\Column(name="id_str", type="string", length=255)
-     * @JMS\SerializedName("id")
-     */
-    private $idStr;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -82,11 +73,11 @@ class Place
     private $placeType;
 
     /**
-     * @var integer
+     * @var ArrayCollection<Tweet>
      *
-     * @ORM\OneToOne(targetEntity="Tweet", mappedBy="place")
+     * @ORM\ManyToOne(targetEntity="Tweet")
      */
-    private $tweet;
+    private $tweets;
 
     /**
      * @var string
@@ -219,29 +210,6 @@ class Place
     public function getFullName()
     {
         return $this->fullName;
-    }
-
-    /**
-     * Set idStr
-     *
-     * @param string $idStr
-     * @return Place
-     */
-    public function setIdStr($idStr)
-    {
-        $this->idStr = $idStr;
-
-        return $this;
-    }
-
-    /**
-     * Get idStr
-     *
-     * @return string
-     */
-    public function getIdStr()
-    {
-        return $this->idStr;
     }
 
     /**

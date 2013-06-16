@@ -1,7 +1,15 @@
 parameters:
-#    bangpound_twitter_data.example.class: Bangpound\Twitter\DataBundle\Example
+     bangpound_twitter_data.deserialize_tweet.class: Bangpound\Twitter\DataBundle\Subscriber\DeserializeTweet
+     bangpound_twitter_data.db.table_prefix: twitter_data__
 
 services:
-#    bangpound_twitter_data.example:
-#        class: %bangpound_twitter_data.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    bangpound_twitter_data.deserialize_tweet:
+        class: %bangpound_twitter_data.deserialize_tweet.class%
+        tags:
+            - { name: jms_serializer.event_subscriber }
+
+    bangpound_twitter_data.tblprefix_subscriber:
+        class: Bangpound\Twitter\DataBundle\Subscriber\TablePrefixSubscriber
+        arguments: [%bangpound_twitter_data.db.table_prefix%]
+        tags:
+            - { name: doctrine.event_subscriber }

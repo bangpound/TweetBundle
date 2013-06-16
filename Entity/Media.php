@@ -3,11 +3,12 @@
 namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Media
  *
- * @ORM\Table("media")
+ * @ORM\Table("media", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
  * @ORM\Entity
  */
 class Media
@@ -27,13 +28,6 @@ class Media
      * @ORM\Column(name="display_url", type="string", length=255)
      */
     private $displayUrl;
-
-    /**
-     * @var Entities
-     *
-     * @ORM\ManyToOne(targetEntity="Entities", inversedBy="media")
-     */
-    private $entities;
 
     /**
      * @var string
@@ -83,6 +77,13 @@ class Media
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
+
+    /**
+     * @var ArrayCollection<Tweet>
+     *
+     * @ORM\ManyToMany(targetEntity="Tweet", mappedBy="hashtags")
+     */
+    private $tweets;
 
     /**
      * @var string
@@ -307,11 +308,6 @@ class Media
     public function getUrl()
     {
         return $this->url;
-    }
-    public function setEntities(Entities $entities)
-    {
-        $this->entities = $entities;
-        return $this;
     }
 
     public function __toString()

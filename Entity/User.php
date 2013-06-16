@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * User
  *
- * @ORM\Table("user")
+ * @ORM\Table("user", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
  * @ORM\Entity
  */
 class User
@@ -269,13 +269,6 @@ class User
     private $timeZone;
 
     /**
-     * @var integer
-     *
-     * @ORM\OneToOne(targetEntity="Tweet", mappedBy="user")
-     */
-    private $tweet;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
@@ -310,6 +303,12 @@ class User
      */
     private $withheldScope;
 
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * Get id
