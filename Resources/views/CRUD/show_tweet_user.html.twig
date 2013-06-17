@@ -1,0 +1,44 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field%}
+<div class="media">
+<span class="pull-left" href="#">
+<img class="media-object" src="{{ value.profileImageUrl }}" />
+</span>
+<div class="media-body">
+<h4 class="media-heading">{{ value.name }} <small>@{{ value.screenName }}</small></h4>
+<dl class="dl-horizontal">
+{% if value.profileBannerUrl is not empty %}
+<dt>Profile banner</dt>
+<dd><img src="{{ value.profileBannerUrl }}/web" /></dd>
+{% endif %}
+{% if value.description is not empty %}
+<dt>Description</dt>
+<dd>{{ value.description }}</dd>
+{% endif %}
+{% if value.location is not empty %}
+<dt>Location</dt>
+<dd>{{ value.location }}</dd>
+{% endif %}
+{% if value.url is not empty %}
+<dt>URL</dt>
+<dd>{{ value.url }}</dd>
+{% endif %}
+{% if value.timeZone is not empty %}
+<dt>Time zone</dt>
+<dd>{{ value.timeZone }}</dd>
+{% endif %}
+<dt>Created at</dt>
+<dd>{{ value.createdAt|date }}</dd>
+<dt>Statuses</dt>
+<dd>{{ value.statusesCount }}</dd>
+<dt>Language</dt>
+<dd>{{ value.lang }}</dd>
+<dt>Friends</dt>
+<dd>{{ value.friendsCount }}</dd>
+<dt>Followers</dt>
+<dd>{{ value.followersCount }}</dd>
+</dl>
+</div>
+</div>
+{% endblock %}

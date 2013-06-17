@@ -1,0 +1,64 @@
+{% if object.place.boundingBox is defined %}
+<th>
+<ul class="unstyled">
+    <li>{{ object.place.country }}</li>
+    <li>{{ object.place.fullName }}</li>
+    <li>{{ object.place.placeType }}</li>
+    {% for attribute in object.place.attributes %}
+    <li>{{ attribute }}</li>
+    {% endfor %}
+</ul>
+</th>
+<td><div id="map" style="width: 500px; height: 500px;"></div>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
+<![endif]-->
+<link rel="stylesheet" href="http://leaflet.github.io/Leaflet.label/leaflet.label.css" />
+
+<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+<script src="https://raw.github.com/leaflet-extras/leaflet-providers/master/leaflet-providers.js"></script>
+<script src="http://leaflet.github.io/Leaflet.label/leaflet.label.js"></script>
+<script>
+var features = [];
+{% if object.place.boundingBox is not empty %}
+var boundingBox = {{ object.place.boundingBox|json_encode()|raw }};
+features.push({
+    type: "Feature",
+    properties: {
+        "name": "{{ object.place.fullName }}"
+    },
+    geometry: boundingBox,
+    style: {
+        fillOpacity: 0
+    }
+});
+{% endif %}
+{% if object.coordinates is not empty %}
+features.push({
+    type: "Feature",
+    geometry: {{ object.coordinates|json_encode()|raw }},
+    properties: {
+        popupContent: "{{ object.place.fullName }}"
+    }
+});
+{% endif %}
+var layer = L.geoJson(features, {
+    onEachFeature: function (feature, layer) {
+        // does this feature have a property named popupContent?
+        if (feature.properties && feature.properties.popupContent) {
+            layer.bindPopup(feature.properties.popupContent);
+        }
+        if (feature.properties && feature.properties.name) {
+            layer.bindLabel(feature.properties.name);
+        }
+    },
+    style: function (feature) {
+        return feature.style;
+    }
+});
+var map = L.map('map', { maxZoom: 17, layers: [ L.tileLayer.provider('Acetate'), layer ] });
+map.fitBounds(layer.getBounds());
+</script>
+</td>
+{% endif %}

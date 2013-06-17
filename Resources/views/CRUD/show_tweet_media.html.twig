@@ -1,0 +1,15 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+
+{% block field%}
+    <ul class="sonata-ba-show-one-to-many unstyled">
+    {% if field_description.hasassociationadmin and field_description.associationadmin.isGranted('EDIT') and field_description.associationadmin.hasRoute('edit') %}
+        {% for element in value %}
+            <li><a href="{{ field_description.associationadmin.generateObjectUrl(field_description.options.route.name, element, field_description.options.route.parameters) }}">{{ element|render_relation_element(field_description) }}</a></li>
+        {% endfor %}
+    {% else %}
+        {% for element in value %}
+            <li><img src="{{ element.mediaUrl }}" title="{{ element.expandedUrl }}" /></li>
+        {% endfor %}
+    {% endif %}
+    </ul>
+{% endblock %}

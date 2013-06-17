@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Knp\Menu\ItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class TweetAdmin extends Admin
 {
@@ -25,24 +26,25 @@ class TweetAdmin extends Admin
     {
         $showMapper
             ->add('text')
-            ->add('user')
+            ->add('createdAt')
+            ->add('user', null, array('template' => 'BangpoundTwitterDataBundle:CRUD:show_tweet_user.html.twig'))
             ->add('hashtags')
-            ->add('media')
-            ->add('urls')
+            ->add('source', null, array('safe' => true))
+            ->add('media', null, array('template' => 'BangpoundTwitterDataBundle:CRUD:show_tweet_media.html.twig'))
+            ->add('urls', null, array('template' => 'BangpoundTwitterDataBundle:CRUD:show_tweet_urls.html.twig'))
             ->add('userMentions')
-        ;
-    }
-
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->add('text')
+            ->with('Geo')
+                ->add('place')
+                ->add('coordinates')
         ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('text')
+            ->add('place', 'doctrine_orm_boolean', array('field_type' => 'checkbox', 'required' => false))
+            ->add('user.verified')
             ->add('lang')
             ->add('createdAt')
         ;
@@ -52,26 +54,30 @@ class TweetAdmin extends Admin
     {
         $listMapper
             ->add('createdAt')
-            ->add('user.screenName')
-            ->addIdentifier('text')
-            ->add('hashtags')
+            ->add('user')
+            ->addIdentifier('text', null, array('route' => array('name' => 'show')))
             ->add('lang')
         ;
     }
 
-    protected function configureSideMenu(ItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    protected function configureRoutes(RouteCollection $collection)
     {
-        if (!$childAdmin && !in_array($action, array('edit', 'show'))) { return; }
+        $collection
+            ->remove('edit')
+            ->remove('create')
+            ->remove('history')
+        ;
+    }
 
-        $admin = $this->isChild() ? $this->getParent() : $this;
-        $id = $admin->getRequest()->get('id');
-
-        $menu->addChild('Tweet', array('uri' => $admin->generateUrl('edit', array('id' => $id))));
-        $menu->addChild('Hashtags', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.hashtag.list', array('id' => $id))));
-        $menu->addChild('Media', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.media.list', array('id' => $id))));
-        $menu->addChild('Urls', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.url.list', array('id' => $id))));
-        $menu->addChild('User', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.user.list', array('id' => $id))));
-        $menu->addChild('UserMentions', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.user_mention.list', array('id' => $id))));
-        $menu->addChild('Place', array('uri' => $admin->generateUrl('bangpound_twitter_data.admin.place.list', array('id' => $id))));
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'show':
+                return 'BangpoundTwitterDataBundle:CRUD:show_tweet.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
     }
 }
