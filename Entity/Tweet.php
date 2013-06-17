@@ -25,7 +25,7 @@ class Tweet
     private $id;
 
     /**
-     * @var Geometry\GeometryType
+     * @var array
      *
      * @ORM\Column(name="coordinates", type="json_array", nullable=true)
      * @JMS\Type("array")
@@ -187,7 +187,7 @@ class Tweet
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tweets")
      * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\User")
      */
     private $user;
@@ -222,6 +222,11 @@ class Tweet
         $this->userMentions = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->text;
+    }
+
     /**
      * Get id
      *
@@ -230,6 +235,17 @@ class Tweet
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setCoordinates($coordinates)
+    {
+        $this->coordinates = $coordinates;
+        return $this;
+    }
+
+    public function getCoordinates()
+    {
+        return $this->coordinates;
     }
 
     /**

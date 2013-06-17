@@ -73,13 +73,6 @@ class Place
     private $placeType;
 
     /**
-     * @var ArrayCollection<Tweet>
-     *
-     * @ORM\ManyToOne(targetEntity="Tweet")
-     */
-    private $tweets;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
@@ -279,5 +272,10 @@ class Place
     public function getUrl()
     {
         return $this->url;
+    }
+
+    public function __toString()
+    {
+        return $this->fullName;
     }
 }

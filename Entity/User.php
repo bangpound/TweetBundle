@@ -269,6 +269,14 @@ class User
     private $timeZone;
 
     /**
+     *
+     * @var ArrayCollection<Tweet>
+     *
+     * @ORM\OneToMany(targetEntity="Tweet", mappedBy="user")
+     */
+    private $tweets;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
