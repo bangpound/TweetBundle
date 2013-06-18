@@ -33,9 +33,7 @@ class TweetAdmin extends Admin
             ->add('media', null, array('template' => 'BangpoundTwitterDataBundle:CRUD:show_tweet_media.html.twig'))
             ->add('urls', null, array('template' => 'BangpoundTwitterDataBundle:CRUD:show_tweet_urls.html.twig'))
             ->add('userMentions')
-            ->with('Geo')
-                ->add('place')
-                ->add('coordinates')
+            ->add('retweetedStatus')
         ;
     }
 
@@ -43,7 +41,7 @@ class TweetAdmin extends Admin
     {
         $datagridMapper
             ->add('text')
-            ->add('place', 'doctrine_orm_boolean', array('field_type' => 'checkbox', 'required' => false))
+            ->add('place')
             ->add('user.verified')
             ->add('lang')
             ->add('createdAt')

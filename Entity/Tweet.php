@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Tweet
  *
- * @ORM\Table("tweet")
+ * @ORM\Table("tweet", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
  * @ORM\Entity
  */
 class Tweet
@@ -57,7 +57,7 @@ class Tweet
     /**
      * @var string
      *
-     * @ORM\Column(name="filter_level", type="string", length=255)
+     * @ORM\Column(name="filter_level", type="string", length=255, nullable=true)
      */
     private $filterLevel;
 
@@ -154,6 +154,15 @@ class Tweet
      * @ORM\Column(name="retweeted", type="boolean")
      */
     private $retweeted;
+
+    /**
+     * @var Tweet
+     *
+     * @ORM\ManyToOne(targetEntity="Tweet")
+     * @ORM\JoinColumn(name="retweeted_status_id", nullable=true)
+     * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\Tweet")
+     */
+    private $retweetedStatus;
 
     /**
      * @var string
@@ -626,6 +635,29 @@ class Tweet
     public function getRetweeted()
     {
         return $this->retweeted;
+    }
+
+    /**
+     * Set retweetedStatus
+     *
+     * @param Tweet $retweetedStatus
+     * @return Tweet
+     */
+    public function setRetweetedStatus(Tweet $retweetedStatus)
+    {
+        $this->retweetedStatus = $retweetedStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get retweeted
+     *
+     * @return boolean
+     */
+    public function getRetweetedStatus()
+    {
+        return $this->retweetedStatus;
     }
 
     /**

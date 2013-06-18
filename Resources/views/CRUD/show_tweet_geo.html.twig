@@ -1,5 +1,6 @@
-{% if object.place.boundingBox is defined %}
+{% if object.place or object.coordinates is not empty %}
 <th>
+{% if object.place is not empty %}
 <ul class="unstyled">
     <li>{{ object.place.country }}</li>
     <li>{{ object.place.fullName }}</li>
@@ -8,6 +9,7 @@
     <li>{{ attribute }}</li>
     {% endfor %}
 </ul>
+{% endif %}
 </th>
 <td><div id="map" style="width: 500px; height: 500px;"></div>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
@@ -19,14 +21,18 @@
 <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
 <script src="https://raw.github.com/leaflet-extras/leaflet-providers/master/leaflet-providers.js"></script>
 <script src="http://leaflet.github.io/Leaflet.label/leaflet.label.js"></script>
+<script src="http://olegsmith.github.io/leaflet.geocoding/leaflet.geocoding.js"></script>
 <script>
 var features = [];
-{% if object.place.boundingBox is not empty %}
+var geocoding = new L.Geocoding({
+    provider: 'geonames'
+});
+{% if object.place and object.place.boundingBox is not empty %}
 var boundingBox = {{ object.place.boundingBox|json_encode()|raw }};
 features.push({
     type: "Feature",
     properties: {
-        "name": "{{ object.place.fullName }}"
+        name: "{{ object.place.fullName }}"
     },
     geometry: boundingBox,
     style: {
@@ -39,7 +45,7 @@ features.push({
     type: "Feature",
     geometry: {{ object.coordinates|json_encode()|raw }},
     properties: {
-        popupContent: "{{ object.place.fullName }}"
+        popupContent: "{% if object.place and object.place.fullName is not empty %}{{ object.place.fullName }}{%else%}Somewhere{% endif %}"
     }
 });
 {% endif %}
@@ -58,7 +64,13 @@ var layer = L.geoJson(features, {
     }
 });
 var map = L.map('map', { maxZoom: 17, layers: [ L.tileLayer.provider('Acetate'), layer ] });
+map.addControl(geocoding);
 map.fitBounds(layer.getBounds());
+{% if object.place and object.place.fullName is not empty %}
+//geocoding.geocode("{{ object.place.fullName }}");
+{% elseif object.place and object.place.country is not empty %}
+//geocoding.geocode("{{ object.place.country }}");
+{% endif %}
 </script>
 </td>
 {% endif %}

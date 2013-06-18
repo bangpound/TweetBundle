@@ -23,7 +23,9 @@ file that was distributed with this source code.
 {% block side_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
 
 {% block show %}
-    <div class="sonata-ba-view">
+<div class="row-fluid">
+    <div class="sonata-ba-view span6">
+        {{ render(controller('BangpoundTwitterDataBundle:Default:oembedTweet', { 'tweet': object })) }}
         {% for name, view_group in admin.showgroups %}
             <table class="table table-bordered table-condensed">
                 {% if name %}
@@ -34,11 +36,6 @@ file that was distributed with this source code.
                     </tr>
                 {% endif %}
 
-                {% if name == 'Geo' %}
-                    <tr class="sonata-ba-view-container">
-                        {% include 'BangpoundTwitterDataBundle:CRUD:show_tweet_geo.html.twig' %}
-                    </tr>
-                {% else %}
                 {% for field_name in view_group.fields %}
                     <tr class="sonata-ba-view-container">
                         {% if elements[field_name] is defined %}
@@ -46,8 +43,20 @@ file that was distributed with this source code.
                         {% endif %}
                     </tr>
                 {% endfor %}
-                {% endif %}
             </table>
         {% endfor %}
     </div>
+    <div class="sonata-ba-view-container span6">
+        <table class="table table-bordered table-condensed">
+            <tr class="sonata-ba-view-title">
+                <td colspan="2">
+                    Geo
+                </td>
+            </tr>
+            <tr class="sonata-ba-view-container">
+                {% include 'BangpoundTwitterDataBundle:CRUD:show_tweet_geo.html.twig' %}
+            </tr>
+        </table>
+    </div>
+</div>
 {% endblock %}
