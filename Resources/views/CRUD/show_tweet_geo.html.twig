@@ -43,17 +43,14 @@ features.push({
 {% if object.coordinates is not empty %}
 features.push({
     type: "Feature",
-    geometry: {{ object.coordinates|json_encode()|raw }},
-    properties: {
-        popupContent: "{% if object.place and object.place.fullName is not empty %}{{ object.place.fullName }}{%else%}Somewhere{% endif %}"
-    }
+    geometry: {{ object.coordinates|json_encode()|raw }}
 });
 {% endif %}
 var layer = L.geoJson(features, {
     onEachFeature: function (feature, layer) {
         // does this feature have a property named popupContent?
         if (feature.properties && feature.properties.popupContent) {
-            layer.bindPopup(feature.properties.popupContent);
+            layer.bindPopup(feature.properties.popupContent).openPopup();
         }
         if (feature.properties && feature.properties.name) {
             layer.bindLabel(feature.properties.name);
@@ -63,7 +60,13 @@ var layer = L.geoJson(features, {
         return feature.style;
     }
 });
-var map = L.map('map', { maxZoom: 17, layers: [ L.tileLayer.provider('Acetate'), layer ] });
+var map = L.map('map', {
+    maxZoom: 17,
+    layers: [
+        L.tileLayer.provider('Stamen.Toner'),
+        layer
+    ]
+});
 map.addControl(geocoding);
 map.fitBounds(layer.getBounds());
 {% if object.place and object.place.fullName is not empty %}
