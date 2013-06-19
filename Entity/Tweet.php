@@ -10,7 +10,16 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Tweet
  *
- * @ORM\Table("tweet", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
+ * @ORM\Table("tweet",
+ *   uniqueConstraints={
+ *       @ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})
+ *   },
+ *   indexes={
+ *       @ORM\Index(name="created_at_idx", columns={"created_at"}),
+ *       @ORM\Index(name="favorite_count_idx", columns={"favorite_count"}),
+ *       @ORM\Index(name="retweet_count_idx", columns={"retweet_count"})
+ *   }
+ * )
  * @ORM\Entity
  */
 class Tweet
@@ -18,7 +27,7 @@ class Tweet
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", options={"unsigned"=true})
+     * @ORM\Column(name="id", type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -72,7 +81,7 @@ class Tweet
     /**
      * @var string
      *
-     * @ORM\Column(name="id_str", type="string", length=255)
+     * @ORM\Column(name="id_str", type="string", length=20)
      */
     private $idStr;
 
@@ -93,7 +102,7 @@ class Tweet
     /**
      * @var string
      *
-     * @ORM\Column(name="in_reply_to_status_id_str", type="string", length=255, nullable=true)
+     * @ORM\Column(name="in_reply_to_status_id_str", type="string", length=20, nullable=true)
      */
     private $inReplyToStatusIdStr;
 
@@ -107,7 +116,7 @@ class Tweet
     /**
      * @var string
      *
-     * @ORM\Column(name="in_reply_to_user_id_str", type="string", length=255, nullable=true)
+     * @ORM\Column(name="in_reply_to_user_id_str", type="string", length=20, nullable=true)
      */
     private $inReplyToUserIdStr;
 
@@ -167,7 +176,7 @@ class Tweet
     /**
      * @var string
      *
-     * @ORM\Column(name="source", type="text")
+     * @ORM\Column(name="source", type="string", length=255)
      */
     private $source;
 
@@ -196,7 +205,7 @@ class Tweet
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="tweets")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tweets", fetch="EAGER")
      * @JMS\Type("Bangpound\Twitter\DataBundle\Entity\User")
      */
     private $user;

@@ -8,7 +8,12 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * User
  *
- * @ORM\Table("user", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
+ * @ORM\Table("user",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})},
+ *     indexes={
+ *         @ORM\Index(name="screen_name_idx", columns={"screen_name"}),
+ *     }
+ * )
  * @ORM\Entity
  */
 class User
@@ -16,7 +21,7 @@ class User
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", options={"unsigned"=true})
+     * @ORM\Column(name="id", type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -103,7 +108,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="id_str", type="string", length=255)
+     * @ORM\Column(name="id_str", type="string", length=20)
      */
     private $idStr;
 

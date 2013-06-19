@@ -16,7 +16,7 @@ class UserMention
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,7 +25,7 @@ class UserMention
     /**
      * @var string
      *
-     * @ORM\Column(name="id_str", type="string", length=255)
+     * @ORM\Column(name="id_str", type="string", length=20)
      */
     private $idStr;
 

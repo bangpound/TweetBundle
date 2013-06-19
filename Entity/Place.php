@@ -16,7 +16,7 @@ class Place
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="string", length=255)
+     * @ORM\Column(name="id", type="string", length=16)
      * @ORM\Id
      */
     private $id;
