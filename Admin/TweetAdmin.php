@@ -5,9 +5,6 @@ namespace Bangpound\Twitter\DataBundle\Admin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Knp\Menu\ItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
@@ -41,9 +38,9 @@ class TweetAdmin extends Admin
     {
         $datagridMapper
             ->add('text')
-            ->add('place')
-            ->add('user.verified')
             ->add('lang')
+            ->add('retweetCount')
+            ->add('favoriteCount')
             ->add('createdAt')
         ;
     }
@@ -55,6 +52,8 @@ class TweetAdmin extends Admin
             ->add('user')
             ->addIdentifier('text', null, array('route' => array('name' => 'show')))
             ->add('lang')
+            ->add('retweetCount')
+            ->add('favoriteCount')
         ;
     }
 
