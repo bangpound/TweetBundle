@@ -36,7 +36,7 @@ class Tweet
     /**
      * @var Point
      *
-     * @ORM\Column(name="coordinates", type="point", nullable=true)
+     * @ORM\Column(name="coordinates", type="Point", nullable=true)
      * @JMS\Type("array")
      * @JMS\Accessor(setter="setCoordinatesGeoJSON")
      */

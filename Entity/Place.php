@@ -33,7 +33,7 @@ class Place
     /**
      * @var Polygon
      *
-     * @ORM\Column(name="bounding_box", type="polygon", nullable=true)
+     * @ORM\Column(name="bounding_box", type="Polygon", nullable=true)
      * @JMS\Type("array")
      * @JMS\Accessor(setter="setBoundingBoxGeoJSON")
      */

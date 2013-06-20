@@ -45,12 +45,8 @@ var map = L.map('map', {
     wkt.read('POINT({{ object.coordinates }})');
     var coordinates = wkt.toObject();
     map.addLayer(coordinates);
-    {% if object.place and object.place.boundingBox is empty %}
-        map.setView(coordinates.getLatLng(), 12);
-    {% endif %}
-    {% if object.place.fullName is defined %}
-        coordinates.bindLabel('{{ object.place.fullName }}', { noHide: true }).showLabel();
-    {% endif %}
+    {% if object.place is empty and object.place.boundingBox is not defined %}map.setView(coordinates.getLatLng(), 12);{% endif %}
+    {% if object.place.fullName is defined %}coordinates.bindLabel('{{ object.place.fullName }}', { noHide: true }).showLabel();{% endif %}
 {% endif %}
 </script>
 </td>
