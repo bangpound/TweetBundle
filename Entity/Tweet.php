@@ -2,7 +2,7 @@
 
 namespace Bangpound\Twitter\DataBundle\Entity;
 
-use CrEOF\Spatial\PHP\Types as Geometry;
+use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -34,10 +34,11 @@ class Tweet
     private $id;
 
     /**
-     * @var array
+     * @var Point
      *
-     * @ORM\Column(name="coordinates", type="json_array", nullable=true)
+     * @ORM\Column(name="coordinates", type="point", nullable=true)
      * @JMS\Type("array")
+     * @JMS\Accessor(setter="setCoordinatesGeoJSON")
      */
     private $coordinates;
 
@@ -255,10 +256,23 @@ class Tweet
         return $this->id;
     }
 
-    public function setCoordinates($coordinates)
+    public function setCoordinates(Point $coordinates)
     {
         $this->coordinates = $coordinates;
         return $this;
+    }
+
+    /**
+     *
+     * @param array $coordinates
+     * @return \Bangpound\Twitter\DataBundle\Entity\Tweet
+     */
+    public function setCoordinatesGeoJSON($coordinates)
+    {
+        if (is_array($coordinates) && isset($coordinates['coordinates']))
+        {
+            return $this->setCoordinates(new Point($coordinates['coordinates'][0], $coordinates['coordinates'][1]));
+        }
     }
 
     public function getCoordinates()

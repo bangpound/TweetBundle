@@ -4,6 +4,7 @@ namespace Bangpound\Twitter\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use CrEOF\Spatial\PHP\Types\Geometry\Polygon;
 
 /**
  * Place
@@ -30,10 +31,11 @@ class Place
     private $attributes;
 
     /**
-     * @var geometry
+     * @var Polygon
      *
-     * @ORM\Column(name="bounding_box", type="json_array", nullable=true)
+     * @ORM\Column(name="bounding_box", type="polygon", nullable=true)
      * @JMS\Type("array")
+     * @JMS\Accessor(setter="setBoundingBoxGeoJSON")
      */
     private $boundingBox;
 
@@ -116,14 +118,34 @@ class Place
     /**
      * Set boundingBox
      *
-     * @param geometry $boundingBox
+     * @param Polygon $boundingBox
      * @return Place
      */
-    public function setBoundingBox($boundingBox)
+    public function setBoundingBox(Polygon $boundingBox)
     {
         $this->boundingBox = $boundingBox;
 
         return $this;
+    }
+
+    /**
+     *
+     * @param array $boundingBox
+     * @return Place
+     */
+    public function setBoundingBoxGeoJSON($boundingBox)
+    {
+        if (is_array($boundingBox) && isset($boundingBox['coordinates']))
+        {
+            $rings = array();
+            foreach ($boundingBox['coordinates'] as $coordinates)
+            {
+                $ring = $coordinates;
+                $ring[] = $coordinates[0];
+                $rings[] = $ring;
+            }
+            return $this->setBoundingBox(new Polygon($rings));
+        }
     }
 
     /**
