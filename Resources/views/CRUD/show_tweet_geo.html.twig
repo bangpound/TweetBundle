@@ -36,9 +36,7 @@ var map = L.map('map', {
     boundingBox.setStyle({ fillOpacity: 0 });
     map.addLayer(boundingBox);
     map.fitBounds(boundingBox.getBounds());
-    {% if object.place.fullName is not empty and object.coordinates is empty %}
-        boundingBox.bindLabel('{{ object.place.fullName }}');
-    {% endif %}
+    {% if object.place.fullName is not empty and object.coordinates is empty %}boundingBox.bindLabel('{{ object.place.fullName }}');{% endif %}
 {% endif %}
 {% if object.coordinates is not empty %}
     var wkt = new Wkt.Wkt();
