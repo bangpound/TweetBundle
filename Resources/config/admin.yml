@@ -2,8 +2,15 @@ services:
     bangpound_twitter_data.admin.tweet:
         class: Bangpound\Twitter\DataBundle\Admin\TweetAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Twitter, label: Tweet }
+            - { name: sonata.admin, manager_type: orm, group: Twitter, label: Tweet, datagrid_builder: 'bangpound_twitter_data.admin.builder' }
         arguments:
             - ~
             - Bangpound\Twitter\DataBundle\Entity\Tweet
             - 'SonataAdminBundle:CRUD'
+
+    bangpound_twitter_data.admin.builder:
+        class: Bangpound\Twitter\DataBundle\Builder\DatagridBuilder
+        arguments:
+            - '@form.factory'
+            - '@sonata.admin.builder.filter.factory'
+            - '@sonata.admin.guesser.orm_datagrid_chain'

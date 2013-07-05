@@ -72,6 +72,9 @@ class TweetAdmin extends Admin
             case 'show':
                 return 'BangpoundTwitterDataBundle:CRUD:show_tweet.html.twig';
                 break;
+            case 'list':
+                return 'BangpoundTwitterDataBundle:CRUD:list_tweet.html.twig';
+                break;
             default:
                 return parent::getTemplate($name);
                 break;
