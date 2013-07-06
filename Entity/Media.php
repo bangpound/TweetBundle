@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as JMS;
  * Media
  *
  * @ORM\Table("media", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
  */
 class Media
 {

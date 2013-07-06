@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as JMS;
  * Url
  *
  * @ORM\Table("url", uniqueConstraints={@ORM\UniqueConstraint(name="url_idx", columns={"url"})}, options={"collate"="utf8_bin"})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
  */
 class Url
 {

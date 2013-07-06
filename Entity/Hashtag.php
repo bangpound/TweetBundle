@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Hashtag
  *
  * @ORM\Table("hashtag", uniqueConstraints={@ORM\UniqueConstraint(name="text_idx", columns={"text"})}, options={"collate"="utf8_bin"})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
  */
 class Hashtag
 {

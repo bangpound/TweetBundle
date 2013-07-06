@@ -10,7 +10,7 @@ use CrEOF\Spatial\PHP\Types\Geometry\Polygon;
  * Place
  *
  * @ORM\Table("place")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
  */
 class Place
 {

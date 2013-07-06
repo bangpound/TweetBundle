@@ -20,7 +20,7 @@ use JMS\Serializer\Annotation as JMS;
  *       @ORM\Index(name="retweet_count_idx", columns={"retweet_count"})
  *   }
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
  */
 class Tweet
 {

@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation as JMS;
  *         @ORM\Index(name="screen_name_idx", columns={"screen_name"}),
  *     }
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
  */
 class User
 {
