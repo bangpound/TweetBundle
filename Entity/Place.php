@@ -11,6 +11,7 @@ use CrEOF\Spatial\PHP\Types\Geometry\Polygon;
  *
  * @ORM\Table("place")
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class Place
 {

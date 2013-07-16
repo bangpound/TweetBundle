@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table("hashtag", uniqueConstraints={@ORM\UniqueConstraint(name="text_idx", columns={"text"})}, options={"collate"="utf8_bin"})
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class Hashtag
 {
@@ -34,6 +35,7 @@ class Hashtag
      * @var ArrayCollection<Tweet>
      *
      * @ORM\ManyToMany(targetEntity="Tweet", mappedBy="hashtags")
+     * @JMS\Exclude
      */
     private $tweets;
 

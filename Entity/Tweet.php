@@ -21,6 +21,7 @@ use JMS\Serializer\Annotation as JMS;
  *   }
  * )
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class Tweet
 {

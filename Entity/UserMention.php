@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table("user_mention", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class UserMention
 {

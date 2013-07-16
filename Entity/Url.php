@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table("url", uniqueConstraints={@ORM\UniqueConstraint(name="url_idx", columns={"url"})}, options={"collate"="utf8_bin"})
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class Url
 {
@@ -40,6 +41,7 @@ class Url
      * @var ArrayCollection<Tweet>
      *
      * @ORM\ManyToMany(targetEntity="Tweet", mappedBy="urls")
+     * @JMS\Exclude()
      */
     private $tweets;
 

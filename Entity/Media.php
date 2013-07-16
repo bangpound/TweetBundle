@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table("media", uniqueConstraints={@ORM\UniqueConstraint(name="id_str_idx", columns={"id_str"})})
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class Media
 {
@@ -82,6 +83,7 @@ class Media
      * @var ArrayCollection<Tweet>
      *
      * @ORM\ManyToMany(targetEntity="Tweet", mappedBy="hashtags")
+     * @JMS\Exclude()
      */
     private $tweets;
 

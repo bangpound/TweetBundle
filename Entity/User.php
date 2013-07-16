@@ -15,6 +15,7 @@ use JMS\Serializer\Annotation as JMS;
  *     }
  * )
  * @ORM\Entity(repositoryClass="Bangpound\Twitter\DataBundle\Entity\DataRepository")
+ * @JMS\ExclusionPolicy("none")
  */
 class User
 {
@@ -278,6 +279,7 @@ class User
      * @var ArrayCollection<Tweet>
      *
      * @ORM\OneToMany(targetEntity="Tweet", mappedBy="user")
+     * @JMS\Exclude()
      */
     private $tweets;
 
