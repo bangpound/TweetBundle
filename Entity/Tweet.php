@@ -155,7 +155,7 @@ class Tweet
     /**
      * @var integer
      *
-     * @ORM\Column(name="retweet_count", type="integer")
+     * @ORM\Column(name="retweet_count", type="integer", nullable=true)
      */
     private $retweetCount;
 
